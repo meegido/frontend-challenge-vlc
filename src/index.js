@@ -7,7 +7,7 @@ export const getFormValues = formElement =>
     .filter(element => ['SELECT', 'INPUT'].includes(element.nodeName))
     .map(element => ({
       field: element.name,
-      value: element.value
+      value: element.value,
     }))
 
 export const toStringFormValues = values => {
@@ -20,8 +20,10 @@ export const toStringFormValues = values => {
   return `OUTPUT\n${values
     .map(value => `${value.field} --> ${value.value}`)
     .join('\n')}`.concat(
-      `\nTotal ${(FTT + INTEREST_RATE + NUMBER_OF_INSTALLMENTS + 1) * VEHICLE_LOAN_AMOUNT}`
-    )
+    `\nTotal ${
+      (FTT + INTEREST_RATE + NUMBER_OF_INSTALLMENTS + 1) * VEHICLE_LOAN_AMOUNT
+    }`,
+  )
 }
 
 export function Send(values) {
@@ -35,7 +37,7 @@ export function Send(values) {
 }
 
 export function Submit(formElement) {
-  formElement.addEventListener('submit', function (event) {
+  formElement.addEventListener('submit', event => {
     event.preventDefault()
     if (checkFormValidity(formElement)) {
       Send(getFormValues(formElement))
@@ -46,17 +48,17 @@ export function Submit(formElement) {
 }
 
 export function Help(element) {
-  element.addEventListener('click', function (event) {
+  element.addEventListener('click', event => {
     alert('Display here the help text')
   })
 }
 
 export function handleChangeRangeVehicleUnderWarranty(
   warrantyRangeElement,
-  vehicleWarrantyElement
+  vehicleWarrantyElement,
 ) {
   const MIN_VALUE = 12000.0
-  warrantyRangeElement.addEventListener('change', function (event) {
+  warrantyRangeElement.addEventListener('change', event => {
     vehicleWarrantyElement.value =
       (Number(MIN_VALUE) * Number(event.target.value)) / 100 + Number(MIN_VALUE)
   })
@@ -64,10 +66,10 @@ export function handleChangeRangeVehicleUnderWarranty(
 
 export function handleChangeVehicleLoanAmount(
   loanAmountRangeElement,
-  loanAmountElement
+  loanAmountElement,
 ) {
   const MIN_VALUE = 30000.0
-  loanAmountRangeElement.addEventListener('change', function (event) {
+  loanAmountRangeElement.addEventListener('change', event => {
     loanAmountElement.value =
       (Number(MIN_VALUE) * Number(event.target.value)) / 100 + Number(MIN_VALUE)
   })
@@ -84,16 +86,16 @@ export default class CreditasChallenge {
 
     handleChangeRangeVehicleUnderWarranty(
       document.getElementById('collateral-value-range'),
-      document.getElementById('collateral-value')
+      document.getElementById('collateral-value'),
     )
 
     handleChangeVehicleLoanAmount(
       document.getElementById('loan-amount-range'),
-      document.getElementById('loan-amount')
+      document.getElementById('loan-amount'),
     )
   }
 }
 
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', () => {
   CreditasChallenge.initialize()
 })
