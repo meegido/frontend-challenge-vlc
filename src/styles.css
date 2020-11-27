@@ -19,7 +19,8 @@
   font-family: 'ubuntu';
 }
 
-html, body {
+html,
+body {
   height: 100%;
 }
 
@@ -84,6 +85,7 @@ body {
 
 .field {
   display: inherit;
+  flex-direction: column;
 }
 
 .field-group .field:first-child {
@@ -93,19 +95,20 @@ body {
 .field label {
   color: var(--dove-gray);
   font-weight: bold;
-  font-size: .8rem;
+  font-size: 0.8rem;
   margin-bottom: 5px;
 }
 
 .field select {
-  border:none;
+  border: none;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
   -ms-appearance: none;
 }
 
-.field select, .field input[type="text"] {
+.field select,
+.field input[type='text'] {
   color: var(--emperor);
   border: 1px solid var(--nobel);
   background-color: var(--alabaster);
@@ -128,16 +131,16 @@ body {
 }
 
 .range__values span {
-  font-size: .6rem;
+  font-size: 0.6rem;
   font-weight: 100;
 }
 
-.field input[type="range"] {
+.field input[type='range'] {
   transform: translateY(5px);
 }
 
 .footer {
-  font-size: .6rem;
+  font-size: 0.6rem;
   font-weight: 100;
   max-width: 600px;
   margin: 0 auto;
@@ -158,13 +161,13 @@ body {
 
 .form__result h4 {
   color: var(--boulder);
-  font-size: .7rem;
+  font-size: 0.7rem;
   text-align: center;
   margin-bottom: 3px;
 }
 
 .form__result p {
-  font-size: .7rem;
+  font-size: 0.7rem;
   font-weight: 100;
   text-align: center;
 }
