@@ -79,12 +79,12 @@ export function handleChangeRangeVehicleUnderWarranty(
   warrantyRangeElement.addEventListener('change', event => {
     const rangeValue = Number(event.target.value)
     const increment = (MAX_VALUE - MIN_VALUE) / 100
-    const value = increment * rangeValue + MIN_VALUE
-    vehicleWarrantyElement.value = value
+    const collateralValue = increment * rangeValue + MIN_VALUE
+    vehicleWarrantyElement.value = collateralValue
     handleChangeVehicleLoanAmount(
       document.getElementById('loan-amount-range'),
       document.getElementById('loan-amount'),
-      value,
+      collateralValue,
     )
   })
 }
@@ -92,10 +92,10 @@ export function handleChangeRangeVehicleUnderWarranty(
 export function handleChangeVehicleLoanAmount(
   loanAmountRangeElement,
   loanAmountElement,
-  value,
+  collateralValue,
 ) {
   const MIN_VALUE = Number(3000.0)
-  const MAX_VALUE = (value || Number(3000000.0)) * 0.8
+  const MAX_VALUE = (collateralValue || Number(3000000.0)) * 0.8
   const increment = (MAX_VALUE - MIN_VALUE) / 100
   const displayRangeValue = MAX_VALUE - increment
   document.getElementById('min-loan-value').innerHTML = MIN_VALUE
@@ -104,8 +104,8 @@ export function handleChangeVehicleLoanAmount(
 
   loanAmountRangeElement.addEventListener('change', event => {
     const rangeValue = Number(event.target.value)
-    const value = increment * rangeValue + MIN_VALUE
-    loanAmountElement.value = value
+    const collateralValue = increment * rangeValue + MIN_VALUE
+    loanAmountElement.value = collateralValue
   })
 }
 
