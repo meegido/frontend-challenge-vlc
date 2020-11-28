@@ -26,6 +26,18 @@ export const toStringFormValues = values => {
   )
 }
 
+export const udpateTotalValues = () => {
+  const FTT = 6.38 / 100
+  const INTEREST_RATE = 2.34 / 100
+  const NUMBER_OF_INSTALLMENTS =
+    document.getElementById('installments').value / 1000
+  const VEHICLE_LOAN_AMOUNT = document.getElementById('loan-amount').value
+
+  const total =
+    (FTT + INTEREST_RATE + NUMBER_OF_INSTALLMENTS + 1) * VEHICLE_LOAN_AMOUNT
+  document.getElementById('total-loan-value').innerHTML = total
+}
+
 export function Send(values) {
   return new Promise((resolve, reject) => {
     try {
@@ -69,15 +81,21 @@ export function handleChangeRangeVehicleUnderWarranty(
     const increment = (MAX_VALUE - MIN_VALUE) / 100
     const value = increment * rangeValue + MIN_VALUE
     vehicleWarrantyElement.value = value
+    handleChangeVehicleLoanAmount(
+      document.getElementById('loan-amount-range'),
+      document.getElementById('loan-amount'),
+      value,
+    )
   })
 }
 
 export function handleChangeVehicleLoanAmount(
   loanAmountRangeElement,
   loanAmountElement,
+  value,
 ) {
   const MIN_VALUE = Number(3000.0)
-  const MAX_VALUE = Number(3000000.0) * 0.8
+  const MAX_VALUE = (value || Number(3000000.0)) * 0.8
   const increment = (MAX_VALUE - MIN_VALUE) / 100
   document.getElementById('min-loan-value').innerHTML = MIN_VALUE
   document.getElementById('max-loan-value').innerHTML = MAX_VALUE
@@ -85,8 +103,6 @@ export function handleChangeVehicleLoanAmount(
 
   loanAmountRangeElement.addEventListener('change', event => {
     const rangeValue = Number(event.target.value)
-
-    console.log(increment * 90)
     const value = increment * rangeValue + MIN_VALUE
     loanAmountElement.value = value
   })
