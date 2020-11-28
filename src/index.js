@@ -57,10 +57,21 @@ export function handleChangeRangeVehicleUnderWarranty(
   warrantyRangeElement,
   vehicleWarrantyElement,
 ) {
-  const MIN_VALUE = 12000.0
+  const MIN_VALUE = Number(5000.0)
+  const MAX_VALUE = Number(3000000.0)
+  const STEP = MAX_VALUE - MIN_VALUE
+
   warrantyRangeElement.addEventListener('change', event => {
-    vehicleWarrantyElement.value =
-      (Number(MIN_VALUE) * Number(event.target.value)) / 100 + Number(MIN_VALUE)
+    if (Number(event.target.value) === 0) {
+      vehicleWarrantyElement.value = MIN_VALUE
+      return
+    }
+    const rangeValue = Number(event.target.value)
+    console.log(rangeValue)
+    const increment = (MAX_VALUE - MIN_VALUE) / 100
+    const value = increment * rangeValue + MIN_VALUE
+    console.log(increment)
+    vehicleWarrantyElement.value = value
   })
 }
 
