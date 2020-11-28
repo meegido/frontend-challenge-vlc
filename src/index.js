@@ -97,9 +97,10 @@ export function handleChangeVehicleLoanAmount(
   const MIN_VALUE = Number(3000.0)
   const MAX_VALUE = (value || Number(3000000.0)) * 0.8
   const increment = (MAX_VALUE - MIN_VALUE) / 100
+  const displayRangeValue = increment * 90
   document.getElementById('min-loan-value').innerHTML = MIN_VALUE
   document.getElementById('max-loan-value').innerHTML = MAX_VALUE
-  document.getElementById('loan-amount').value = increment * 90
+  document.getElementById('loan-amount').value = increment * displayRangeValue
 
   loanAmountRangeElement.addEventListener('change', event => {
     const rangeValue = Number(event.target.value)
