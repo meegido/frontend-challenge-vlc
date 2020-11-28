@@ -10,7 +10,7 @@ export const getFormValues = formElement =>
       value: element.value,
     }))
 
-export const toStringFormValues = values => {
+export const toStringFormValuesOutput = values => {
   const match = matchString => value => value.field === matchString
   const FTT = 6.38 / 100
   const INTEREST_RATE = 2.34 / 100
@@ -29,19 +29,22 @@ export const toStringFormValues = values => {
 export const udpateTotalValues = () => {
   const FTT = 6.38 / 100
   const INTEREST_RATE = 2.34 / 100
-  const NUMBER_OF_INSTALLMENTS =
-    document.getElementById('installments').value / 1000
+  const installments = document.getElementById('installments').value
+  const NUMBER_OF_INSTALLMENTS = installments / 1000
   const VEHICLE_LOAN_AMOUNT = document.getElementById('loan-amount').value
+  const totalPayable = Math.floor(
+    (FTT + INTEREST_RATE + NUMBER_OF_INSTALLMENTS + 1) * VEHICLE_LOAN_AMOUNT,
+  )
+  const montlyInstallment = Math.floor(totalPayable / NUMBER_OF_INSTALLMENTS)
 
-  const total =
-    (FTT + INTEREST_RATE + NUMBER_OF_INSTALLMENTS + 1) * VEHICLE_LOAN_AMOUNT
-  document.getElementById('total-loan-value').innerHTML = total
+  document.getElementById('total-loan-value').innerHTML = totalPayable
+  document.getElementById('montly-loan-value').innerHTML = montlyInstallment
 }
 
 export function Send(values) {
   return new Promise((resolve, reject) => {
     try {
-      resolve(toStringFormValues(values))
+      resolve(toStringFormValuesOutput(values))
     } catch (error) {
       reject(error)
     }
@@ -87,6 +90,7 @@ export function handleChangeRangeVehicleUnderWarranty(
       collateralValue,
     )
   })
+  udpateTotalValues()
 }
 
 export function handleChangeVehicleLoanAmount(
@@ -106,6 +110,16 @@ export function handleChangeVehicleLoanAmount(
     const rangeValue = Number(event.target.value)
     const collateralValue = increment * rangeValue + MIN_VALUE
     loanAmountElement.value = collateralValue
+  })
+  udpateTotalValues()
+}
+
+export function handleChangeInstallmentsQuantity(
+  installmentsAmountElements,
+  installmentsElement,
+) {
+  installmentsAmountElements.addEventListener('change', event => {
+    udpateTotalValues()
   })
 }
 
@@ -127,6 +141,8 @@ export default class CreditasChallenge {
       document.getElementById('loan-amount-range'),
       document.getElementById('loan-amount'),
     )
+
+    handleChangeInstallmentsQuantity(document.getElementById('installments'))
   }
 }
 
