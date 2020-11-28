@@ -16,7 +16,6 @@ export const toStringFormValuesOutput = values => {
   const INTEREST_RATE = 2.34 / 100
   const NUMBER_OF_INSTALLMENTS = values.find(match('installments')).value / 1000
   const VEHICLE_LOAN_AMOUNT = values.find(match('loan-amount')).value
-
   return `OUTPUT\n${values
     .map(value => `${value.field} --> ${value.value}`)
     .join('\n')}`.concat(
@@ -32,6 +31,8 @@ export const udpateTotalValues = () => {
   const installments = document.getElementById('installments').value
   const NUMBER_OF_INSTALLMENTS = installments / 1000
   const VEHICLE_LOAN_AMOUNT = document.getElementById('loan-amount').value
+  console.log(VEHICLE_LOAN_AMOUNT)
+
   const totalPayable = Math.floor(
     (FTT + INTEREST_RATE + NUMBER_OF_INSTALLMENTS + 1) * VEHICLE_LOAN_AMOUNT,
   )
@@ -110,8 +111,8 @@ export function handleChangeVehicleLoanAmount(
     const rangeValue = Number(event.target.value)
     const collateralValue = increment * rangeValue + MIN_VALUE
     loanAmountElement.value = collateralValue
+    udpateTotalValues()
   })
-  udpateTotalValues()
 }
 
 export function handleChangeInstallmentsQuantity(
