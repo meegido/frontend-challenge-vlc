@@ -137,6 +137,13 @@ body {
 
 .field input[type='range'] {
   transform: translateY(5px);
+  appearance: none;
+  background-color: var(--alabaster);
+  border-radius: 5px;
+  box-shadow: inset 0px 5px 12px var(--silver);
+  height: 8px;
+  cursor: pointer;
+  transition: background 0.15s ease-in-out;
 }
 
 .footer {
