@@ -25,7 +25,7 @@ export const toStringFormValuesOutput = values => {
   )
 }
 
-export const udpateTotalValues = () => {
+export const handleTotalValuesUpdate = () => {
   const FTT = 6.38 / 100
   const INTEREST_RATE = 2.34 / 100
   const installments = document.getElementById('installments').value
@@ -99,7 +99,7 @@ export function handleChangeRangeVehicleUnderWarranty(
       document.getElementById('loan-amount'),
       collateralValue,
     )
-    udpateTotalValues()
+    handleTotalValuesUpdate()
   })
 }
 
@@ -120,13 +120,13 @@ export function handleChangeVehicleLoanAmount(
     const rangeValue = Number(event.target.value)
     const collateralValue = increment * rangeValue + MIN_VALUE
     loanAmountElement.value = collateralValue
-    udpateTotalValues()
+    handleTotalValuesUpdate()
   })
 }
 
 export function handleChangeInstallmentsQuantity(installmentsAmountElements) {
   installmentsAmountElements.addEventListener('change', event => {
-    udpateTotalValues()
+    handleTotalValuesUpdate()
   })
 }
 
@@ -150,6 +150,8 @@ export default class CreditasChallenge {
     )
 
     handleChangeInstallmentsQuantity(document.getElementById('installments'))
+
+    handleTotalValuesUpdate()
   }
 }
 
