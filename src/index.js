@@ -90,8 +90,8 @@ export function handleChangeRangeVehicleUnderWarranty(
       document.getElementById('loan-amount'),
       collateralValue,
     )
+    udpateTotalValues()
   })
-  udpateTotalValues()
 }
 
 export function handleChangeVehicleLoanAmount(
@@ -115,10 +115,7 @@ export function handleChangeVehicleLoanAmount(
   })
 }
 
-export function handleChangeInstallmentsQuantity(
-  installmentsAmountElements,
-  installmentsElement,
-) {
+export function handleChangeInstallmentsQuantity(installmentsAmountElements) {
   installmentsAmountElements.addEventListener('change', event => {
     udpateTotalValues()
   })
