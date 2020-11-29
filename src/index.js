@@ -31,15 +31,24 @@ export const udpateTotalValues = () => {
   const installments = document.getElementById('installments').value
   const NUMBER_OF_INSTALLMENTS = installments / 1000
   const VEHICLE_LOAN_AMOUNT = document.getElementById('loan-amount').value
-  console.log(VEHICLE_LOAN_AMOUNT)
 
   const totalPayable = Math.floor(
     (FTT + INTEREST_RATE + NUMBER_OF_INSTALLMENTS + 1) * VEHICLE_LOAN_AMOUNT,
   )
+  const totalPayableFormatted = totalPayable.toLocaleString('pt-BR', {
+    currency: 'BRL',
+    style: 'currency',
+  })
   const montlyInstallment = Math.floor(totalPayable / NUMBER_OF_INSTALLMENTS)
+  const montlyInstallmentFormatted = montlyInstallment.toLocaleString('pt-BR', {
+    currency: 'BRL',
+    style: 'currency',
+  })
 
-  document.getElementById('total-loan-value').innerHTML = totalPayable
-  document.getElementById('montly-loan-value').innerHTML = montlyInstallment
+  document.getElementById('total-loan-value').innerHTML = totalPayableFormatted
+  document.getElementById(
+    'montly-loan-value',
+  ).innerHTML = montlyInstallmentFormatted
 }
 
 export function Send(values) {
