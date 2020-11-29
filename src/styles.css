@@ -133,6 +133,7 @@ body {
 .range__values span {
   font-size: 0.6rem;
   font-weight: 100;
+  padding-right: 7em;
 }
 
 .field input[type='range'] {

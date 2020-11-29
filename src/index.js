@@ -86,8 +86,16 @@ export function handleChangeRangeVehicleUnderWarranty(
   const MAX_VALUE = Number(3000000.0)
   const STEP = MAX_VALUE - MIN_VALUE
 
-  document.getElementById('min-warranty-value').innerHTML = MIN_VALUE
-  document.getElementById('max-warranty-value').innerHTML = MAX_VALUE
+  const minValueFormatted = MIN_VALUE.toLocaleString('pt-BR', {
+    currency: 'BRL',
+  })
+
+  const maxValueFormatted = MAX_VALUE.toLocaleString('pt-BR', {
+    currency: 'BRL',
+  })
+
+  document.getElementById('min-warranty-value').innerHTML = minValueFormatted
+  document.getElementById('max-warranty-value').innerHTML = maxValueFormatted
 
   warrantyRangeElement.addEventListener('change', event => {
     const rangeValue = Number(event.target.value)
@@ -112,8 +120,18 @@ export function handleChangeVehicleLoanAmount(
   const MAX_VALUE = (collateralValue || Number(3000000.0)) * 0.8
   const increment = (MAX_VALUE - MIN_VALUE) / 100
   const displayRangeValue = MAX_VALUE - increment
-  document.getElementById('min-loan-value').innerHTML = MIN_VALUE
-  document.getElementById('max-loan-value').innerHTML = MAX_VALUE
+
+  const minValueFormatted = MIN_VALUE.toLocaleString('pt-BR', {
+    currency: 'BRL',
+  })
+
+  const maxValueFormatted = MAX_VALUE.toLocaleString('pt-BR', {
+    currency: 'BRL',
+  })
+
+  document.getElementById('min-loan-value').innerHTML = minValueFormatted
+  document.getElementById('max-loan-value').innerHTML = maxValueFormatted
+
   document.getElementById('loan-amount').value = displayRangeValue
 
   loanAmountRangeElement.addEventListener('change', event => {
