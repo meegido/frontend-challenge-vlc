@@ -78,19 +78,30 @@ export function Help(element) {
   })
 }
 
-export function handleChangeRangeVehicleUnderWarranty(
+function handleChangeRangeCollateralUnderWarranty(
   warrantyRangeElement,
   vehicleWarrantyElement,
+  collateralElement,
 ) {
-  const MIN_VALUE = Number(5000.0)
-  const MAX_VALUE = Number(3000000.0)
-  const STEP = MAX_VALUE - MIN_VALUE
+  const values = {
+    vehicle: {
+      minValue: Number(5000.0),
+      maxValue: Number(3000000.0),
+    },
+    house: {
+      minValue: Number(50000.0),
+      maxValue: Number(100000.0),
+    },
+  }
 
-  const minValueFormatted = MIN_VALUE.toLocaleString('pt-BR', {
+  const value = values[collateralElement.value]
+  const step = value.maxValue - value.minValue
+
+  const minValueFormatted = value.minValue.toLocaleString('pt-BR', {
     currency: 'BRL',
   })
 
-  const maxValueFormatted = MAX_VALUE.toLocaleString('pt-BR', {
+  const maxValueFormatted = value.maxValue.toLocaleString('pt-BR', {
     currency: 'BRL',
   })
 
@@ -99,8 +110,8 @@ export function handleChangeRangeVehicleUnderWarranty(
 
   warrantyRangeElement.addEventListener('change', event => {
     const rangeValue = Number(event.target.value)
-    const increment = (MAX_VALUE - MIN_VALUE) / 100
-    const collateralValue = increment * rangeValue + MIN_VALUE
+    const increment = (value.maxValue - value.minValue) / 100
+    const collateralValue = increment * rangeValue + value.minValue
     vehicleWarrantyElement.value = collateralValue
     handleChangeVehicleLoanAmount(
       document.getElementById('loan-amount-range'),
@@ -148,6 +159,24 @@ export function handleChangeInstallmentsQuantity(installmentsAmountElements) {
   })
 }
 
+export function handleCollateralChange(
+  warrantyRangeElement,
+  vehicleWarrantyElement,
+  collateralElement,
+) {
+  console.log(collateralElement)
+
+  collateralElement.addEventListener('change', event => {
+    const collateralType = collateralElement.value
+    handleChangeRangeCollateralUnderWarranty(
+      warrantyRangeElement,
+      vehicleWarrantyElement,
+      collateralElement,
+    )
+    handleTotalValuesUpdate()
+  })
+}
+
 export default class CreditasChallenge {
   static initialize() {
     this.registerEvents()
@@ -157,9 +186,10 @@ export default class CreditasChallenge {
     Submit(document.querySelector('.form'))
     Help(document.getElementById('help'))
 
-    handleChangeRangeVehicleUnderWarranty(
+    handleChangeRangeCollateralUnderWarranty(
       document.getElementById('collateral-value-range'),
       document.getElementById('collateral-value'),
+      document.getElementById('collateral'),
     )
 
     handleChangeVehicleLoanAmount(
@@ -170,6 +200,12 @@ export default class CreditasChallenge {
     handleChangeInstallmentsQuantity(document.getElementById('installments'))
 
     handleTotalValuesUpdate()
+
+    handleCollateralChange(
+      document.getElementById('collateral-value-range'),
+      document.getElementById('collateral-value'),
+      document.getElementById('collateral'),
+    )
   }
 }
 
