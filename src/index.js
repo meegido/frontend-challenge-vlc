@@ -29,18 +29,20 @@ export const handleTotalValuesUpdate = () => {
   const FTT = 6.38 / 100
   const INTEREST_RATE = 2.34 / 100
   const installments = document.getElementById('installments').value
-  const NUMBER_OF_INSTALLMENTS = installments / 1000
+  const NUMBER_OF_INSTALLMENTS = installments
   console.log(NUMBER_OF_INSTALLMENTS)
   const VEHICLE_LOAN_AMOUNT = document.getElementById('loan-amount').value
 
-  const totalPayable = Math.floor(
-    (FTT + INTEREST_RATE + NUMBER_OF_INSTALLMENTS + 1) * VEHICLE_LOAN_AMOUNT,
+  const totalPayable = Math.round(
+    (FTT + INTEREST_RATE + NUMBER_OF_INSTALLMENTS / 1000 + 1) *
+      VEHICLE_LOAN_AMOUNT,
   )
   const totalPayableFormatted = totalPayable.toLocaleString('pt-BR', {
     currency: 'BRL',
     style: 'currency',
   })
-  const montlyInstallment = Math.floor(totalPayable / NUMBER_OF_INSTALLMENTS)
+  const montlyInstallment = Math.round(totalPayable / NUMBER_OF_INSTALLMENTS)
+
   const montlyInstallmentFormatted = montlyInstallment.toLocaleString('pt-BR', {
     currency: 'BRL',
     style: 'currency',
