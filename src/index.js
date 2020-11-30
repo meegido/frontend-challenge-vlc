@@ -87,32 +87,37 @@ function handleChangeRangeCollateralUnderWarranty(
     vehicle: {
       minValue: Number(5000.0),
       maxValue: Number(3000000.0),
+      defautlValue: Number(29950.0),
     },
     house: {
       minValue: Number(50000.0),
-      maxValue: Number(100000.0),
+      maxValue: Number(100000000.0),
+      defautlValue: Number(2995000.0),
     },
   }
 
-  const value = warrantyValues[collateralElement.value]
-  const step = value.maxValue - value.minValue
+  const warranty = warrantyValues[collateralElement.value]
+  const step = warranty.maxValue - warranty.minValue
 
-  const minValueFormatted = value.minValue.toLocaleString('pt-BR', {
+  const minValueFormatted = warranty.minValue.toLocaleString('pt-BR', {
     currency: 'BRL',
   })
 
-  const maxValueFormatted = value.maxValue.toLocaleString('pt-BR', {
+  const maxValueFormatted = warranty.maxValue.toLocaleString('pt-BR', {
     currency: 'BRL',
   })
 
   document.getElementById('min-warranty-value').innerHTML = minValueFormatted
   document.getElementById('max-warranty-value').innerHTML = maxValueFormatted
 
+  collateralWarrantyElement.value = warranty.defautlValue
+
   warrantyRangeElement.addEventListener('change', event => {
     const rangeValue = Number(event.target.value)
-    const increment = (value.maxValue - value.minValue) / 100
-    const collateralValue = increment * rangeValue + value.minValue
+    const increment = (warranty.maxValue - warranty.minValue) / 100
+    const collateralValue = increment * rangeValue + warranty.minValue
     collateralWarrantyElement.value = collateralValue
+
     handleChangeVehicleLoanAmount(
       document.getElementById('loan-amount-range'),
       document.getElementById('loan-amount'),
@@ -168,11 +173,13 @@ export function handleCollateralChange(
 
   collateralElement.addEventListener('change', event => {
     const collateralType = collateralElement.value
+
     handleChangeRangeCollateralUnderWarranty(
       warrantyRangeElement,
       collateralWarrantyElement,
       collateralElement,
     )
+
     handleTotalValuesUpdate()
   })
 }
