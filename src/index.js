@@ -30,6 +30,7 @@ export const handleTotalValuesUpdate = () => {
   const INTEREST_RATE = 2.34 / 100
   const installments = document.getElementById('installments').value
   const NUMBER_OF_INSTALLMENTS = installments / 1000
+  console.log(NUMBER_OF_INSTALLMENTS)
   const VEHICLE_LOAN_AMOUNT = document.getElementById('loan-amount').value
 
   const totalPayable = Math.floor(
@@ -118,22 +119,39 @@ function handleChangeRangeCollateralUnderWarranty(
     const collateralValue = increment * rangeValue + warranty.minValue
     collateralWarrantyElement.value = collateralValue
 
-    handleChangeVehicleLoanAmount(
+    handleChangeCollateralLoanAmount(
       document.getElementById('loan-amount-range'),
       document.getElementById('loan-amount'),
+      document.getElementById('collateral'),
       collateralValue,
     )
     handleTotalValuesUpdate()
   })
 }
 
-export function handleChangeVehicleLoanAmount(
+export function handleChangeCollateralLoanAmount(
   loanAmountRangeElement,
   loanAmountElement,
+  collateralElement,
   collateralValue,
 ) {
-  const MIN_VALUE = Number(3000.0)
-  const MAX_VALUE = (collateralValue || Number(3000000.0)) * 0.8
+  const loanAmount = {
+    vehicle: {
+      minValue: Number(3000.0),
+      defautlValue: Number(29950.0),
+      maxCollateralValue: Number(3000000.0),
+    },
+    house: {
+      minValue: Number(30000.0),
+      defautlValue: Number(2995000.0),
+      maxCollateralValue: Number(100000000.0),
+    },
+  }
+
+  const loan = loanAmount[collateralElement.value]
+
+  const MIN_VALUE = loan.minValue
+  const MAX_VALUE = (collateralValue || loan.maxCollateralValue) * 0.8
   const increment = (MAX_VALUE - MIN_VALUE) / 100
   const displayRangeValue = MAX_VALUE - increment
 
@@ -149,7 +167,6 @@ export function handleChangeVehicleLoanAmount(
   document.getElementById('max-loan-value').innerHTML = maxValueFormatted
 
   document.getElementById('loan-amount').value = displayRangeValue
-
   loanAmountRangeElement.addEventListener('change', event => {
     const rangeValue = Number(event.target.value)
     const collateralValue = increment * rangeValue + MIN_VALUE
@@ -167,10 +184,11 @@ export function handleChangeInstallmentsQuantity(installmentsAmountElements) {
 export function handleCollateralChange(
   warrantyRangeElement,
   collateralWarrantyElement,
+  loanAmountRangeElement,
+  loanAmountElement,
   collateralElement,
+  collateralValue,
 ) {
-  console.log(collateralElement)
-
   collateralElement.addEventListener('change', event => {
     const collateralType = collateralElement.value
 
@@ -178,6 +196,13 @@ export function handleCollateralChange(
       warrantyRangeElement,
       collateralWarrantyElement,
       collateralElement,
+    )
+
+    handleChangeCollateralLoanAmount(
+      loanAmountRangeElement,
+      loanAmountElement,
+      collateralElement,
+      collateralValue,
     )
 
     handleTotalValuesUpdate()
@@ -199,9 +224,10 @@ export default class CreditasChallenge {
       document.getElementById('collateral'),
     )
 
-    handleChangeVehicleLoanAmount(
+    handleChangeCollateralLoanAmount(
       document.getElementById('loan-amount-range'),
       document.getElementById('loan-amount'),
+      document.getElementById('collateral'),
     )
 
     handleChangeInstallmentsQuantity(document.getElementById('installments'))
@@ -211,6 +237,8 @@ export default class CreditasChallenge {
     handleCollateralChange(
       document.getElementById('collateral-value-range'),
       document.getElementById('collateral-value'),
+      document.getElementById('loan-amount-range'),
+      document.getElementById('loan-amount'),
       document.getElementById('collateral'),
     )
   }
