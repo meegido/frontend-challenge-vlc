@@ -80,10 +80,10 @@ export function Help(element) {
 
 function handleChangeRangeCollateralUnderWarranty(
   warrantyRangeElement,
-  vehicleWarrantyElement,
+  collateralWarrantyElement,
   collateralElement,
 ) {
-  const values = {
+  const warrantyValues = {
     vehicle: {
       minValue: Number(5000.0),
       maxValue: Number(3000000.0),
@@ -94,7 +94,7 @@ function handleChangeRangeCollateralUnderWarranty(
     },
   }
 
-  const value = values[collateralElement.value]
+  const value = warrantyValues[collateralElement.value]
   const step = value.maxValue - value.minValue
 
   const minValueFormatted = value.minValue.toLocaleString('pt-BR', {
@@ -112,7 +112,7 @@ function handleChangeRangeCollateralUnderWarranty(
     const rangeValue = Number(event.target.value)
     const increment = (value.maxValue - value.minValue) / 100
     const collateralValue = increment * rangeValue + value.minValue
-    vehicleWarrantyElement.value = collateralValue
+    collateralWarrantyElement.value = collateralValue
     handleChangeVehicleLoanAmount(
       document.getElementById('loan-amount-range'),
       document.getElementById('loan-amount'),
@@ -161,7 +161,7 @@ export function handleChangeInstallmentsQuantity(installmentsAmountElements) {
 
 export function handleCollateralChange(
   warrantyRangeElement,
-  vehicleWarrantyElement,
+  collateralWarrantyElement,
   collateralElement,
 ) {
   console.log(collateralElement)
@@ -170,7 +170,7 @@ export function handleCollateralChange(
     const collateralType = collateralElement.value
     handleChangeRangeCollateralUnderWarranty(
       warrantyRangeElement,
-      vehicleWarrantyElement,
+      collateralWarrantyElement,
       collateralElement,
     )
     handleTotalValuesUpdate()
