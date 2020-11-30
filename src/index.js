@@ -30,7 +30,6 @@ export const handleTotalValuesUpdate = () => {
   const INTEREST_RATE = 2.34 / 100
   const installments = document.getElementById('installments').value
   const NUMBER_OF_INSTALLMENTS = installments
-  console.log(NUMBER_OF_INSTALLMENTS)
   const VEHICLE_LOAN_AMOUNT = document.getElementById('loan-amount').value
 
   const totalPayable = Math.round(
