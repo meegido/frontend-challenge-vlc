@@ -96,7 +96,6 @@ function Help(element) {
       .catch(error => {
         if (error === error.status(500)) {
           helpText = error.message
-          console.log(helpText)
         }
       })
   })
