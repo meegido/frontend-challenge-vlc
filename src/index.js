@@ -149,17 +149,15 @@ export function handleChangeCollateralLoanAmount(
   }
 
   const loan = loanAmount[collateralElement.value]
+  const maxValue = (collateralValue || loan.maxCollateralValue) * 0.8
+  const increment = (maxValue - loan.minValue) / 100
+  const displayRangeValue = maxValue - increment
 
-  const MIN_VALUE = loan.minValue
-  const MAX_VALUE = (collateralValue || loan.maxCollateralValue) * 0.8
-  const increment = (MAX_VALUE - MIN_VALUE) / 100
-  const displayRangeValue = MAX_VALUE - increment
-
-  const minValueFormatted = MIN_VALUE.toLocaleString('pt-BR', {
+  const minValueFormatted = loan.minValue.toLocaleString('pt-BR', {
     currency: 'BRL',
   })
 
-  const maxValueFormatted = MAX_VALUE.toLocaleString('pt-BR', {
+  const maxValueFormatted = maxValue.toLocaleString('pt-BR', {
     currency: 'BRL',
   })
 
@@ -169,7 +167,7 @@ export function handleChangeCollateralLoanAmount(
   document.getElementById('loan-amount').value = displayRangeValue
   loanAmountRangeElement.addEventListener('change', event => {
     const rangeValue = Number(event.target.value)
-    const collateralValue = increment * rangeValue + MIN_VALUE
+    const collateralValue = increment * rangeValue + loan.minValue
     loanAmountElement.value = collateralValue
     handleTotalValuesUpdate()
   })
