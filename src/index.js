@@ -73,16 +73,53 @@ export function Submit(formElement) {
   })
 }
 
-export function Help(element) {
+function Help(element) {
   element.addEventListener('click', event => {
-    fetch('http://localhost:4000/api/question')
-      .then(response => {
-        return response.json()
-      })
-      .then(data => {
-        alert(data.text)
-      })
+    const urls = [
+      'http://localhost:4000/api/question',
+      'http://localhost:4000/api/answer',
+    ]
+    Promise.all(urls.map(url => fetch(url)))
+      .then(
+        responses =>
+          Promise.all(responses.map(response => response.json())).then(
+            payload => {
+              let helpText = ''
+              payload.forEach(data => {
+                helpText += `${data.text}\n`
+              })
+              alert(helpText)
+            },
+          ),
+        reject => console.log(reject),
+      )
       .catch(error => alert(error.message))
+
+    // fetch('http://localhost:4000/api/question')
+    //   .then(response => {
+    //     if (response.ok) {
+    //       return response.json()
+    //     } else {
+    //       return Promise.reject(response)
+    //     }
+    //   })
+    //   .then(data => {
+    //     console.log(data)
+    //     helpText = data.text
+
+    //     return fetch('http://localhost:4000/api/answer' + helpText)
+    //   })
+    //   .then(response => {
+    //     if (response.ok) {
+    //       return response.json()
+    //     } else {
+    //       return Promise.reject(response)
+    //     }
+    //   })
+    //   .then(data => {
+    //     alert(data.text)
+    //   })
+    //   .catch(error => console.log(error))
   })
 }
 
