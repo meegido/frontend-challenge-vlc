@@ -1,8 +1,8 @@
 import './styles.css'
 
-export const checkFormValidity = formElement => formElement.checkValidity()
+const checkFormValidity = formElement => formElement.checkValidity()
 
-export const getFormValues = formElement =>
+const getFormValues = formElement =>
   Object.values(formElement.elements)
     .filter(element => ['SELECT', 'INPUT'].includes(element.nodeName))
     .map(element => ({
@@ -10,7 +10,7 @@ export const getFormValues = formElement =>
       value: element.value,
     }))
 
-export const toStringFormValuesOutput = values => {
+const toStringFormValuesOutput = values => {
   const match = matchString => value => value.field === matchString
   const FTT = 6.38 / 100
   const INTEREST_RATE = 2.34 / 100
@@ -25,7 +25,7 @@ export const toStringFormValuesOutput = values => {
   )
 }
 
-export function handleTotalValuesUpdate() {
+function handleTotalValuesUpdate() {
   const FTT = 6.38 / 100
   const INTEREST_RATE = 2.34 / 100
   const installments = document.getElementById('installments').value
@@ -52,7 +52,7 @@ export function handleTotalValuesUpdate() {
   ).innerHTML = montlyInstallmentFormatted
 }
 
-export function Send(values) {
+function Send(values) {
   return new Promise((resolve, reject) => {
     try {
       resolve(toStringFormValuesOutput(values))
@@ -130,7 +130,7 @@ function handleChangeRangeCollateralUnderWarranty(
   })
 }
 
-export function handleChangeCollateralLoanAmount(
+function handleChangeCollateralLoanAmount(
   loanAmountRangeElement,
   loanAmountElement,
   collateralElement,
@@ -172,41 +172,48 @@ export function handleChangeCollateralLoanAmount(
   })
 }
 
-export function handleChangeInstallmentsQuantity(installmentsAmountElements) {
+function handleChangeInstallmentsQuantity(installmentsAmountElements) {
   installmentsAmountElements.addEventListener('change', event => {
     handleTotalValuesUpdate()
   })
 }
 
-export function handleInstallmentsOptionsChange(
-  installmentsElement,
-  collateralType,
-) {
-  const intallments = {
-    vehicle: ['24', '36', '48'],
-    house: ['120', '180', '240'],
-  }
-  removeSelectOptions(installmentsElement)
-
-  installments[collateralType].forEach(month => {
-    installmentsElement.add(new Option(month, month))
-  })
-}
-
-export function initInstallmentOptions(installmentsElement) {
+function initInstallmentOptions(installmentsElement) {
   const initVehicleOptions = ['24', '36', '48']
   initVehicleOptions.forEach((month, index) => {
     installmentsElement.add(new Option(month, month))
   })
 }
 
-export function handleCollateralChange(
+function handleInstallmentsOptionsChange(collateralType) {
+  const intallments = {
+    vehicle: ['24', '36', '48'],
+    house: ['120', '180', '240'],
+  }
+
+  const installmentsElement = document.getElementById('installments')
+  removeSelectOptions(installmentsElement)
+
+  intallments[collateralType].forEach((month, index) => {
+    installmentsElement.add(new Option(month, month))
+  })
+  handleTotalValuesUpdate()
+}
+
+function removeSelectOptions(element) {
+  for (let index = element.options.length; index > 0; index--) {
+    element.remove(index - 1)
+  }
+}
+
+function handleCollateralChange(
   warrantyRangeElement,
   collateralWarrantyElement,
   loanAmountRangeElement,
   loanAmountElement,
   collateralElement,
   collateralValue,
+  installmentsElement,
 ) {
   collateralElement.addEventListener('change', event => {
     const collateralType = collateralElement.value
@@ -224,7 +231,7 @@ export function handleCollateralChange(
       collateralValue,
     )
 
-    // handleInstallmentsOptionsChange(installmentsElement)
+    handleInstallmentsOptionsChange(collateralType)
 
     handleTotalValuesUpdate()
   })
