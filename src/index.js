@@ -25,13 +25,12 @@ export const toStringFormValuesOutput = values => {
   )
 }
 
-export const handleTotalValuesUpdate = () => {
+export function handleTotalValuesUpdate() {
   const FTT = 6.38 / 100
   const INTEREST_RATE = 2.34 / 100
   const installments = document.getElementById('installments').value
   const NUMBER_OF_INSTALLMENTS = installments
   const VEHICLE_LOAN_AMOUNT = document.getElementById('loan-amount').value
-
   const totalPayable = Math.round(
     (FTT + INTEREST_RATE + NUMBER_OF_INSTALLMENTS / 1000 + 1) *
       VEHICLE_LOAN_AMOUNT,
@@ -179,6 +178,28 @@ export function handleChangeInstallmentsQuantity(installmentsAmountElements) {
   })
 }
 
+export function handleInstallmentsOptionsChange(
+  installmentsElement,
+  collateralType,
+) {
+  const intallments = {
+    vehicle: ['24', '36', '48'],
+    house: ['120', '180', '240'],
+  }
+  removeSelectOptions(installmentsElement)
+
+  installments[collateralType].forEach(month => {
+    installmentsElement.add(new Option(month, month))
+  })
+}
+
+export function initInstallmentOptions(installmentsElement) {
+  const initVehicleOptions = ['24', '36', '48']
+  initVehicleOptions.forEach((month, index) => {
+    installmentsElement.add(new Option(month, month))
+  })
+}
+
 export function handleCollateralChange(
   warrantyRangeElement,
   collateralWarrantyElement,
@@ -203,12 +224,16 @@ export function handleCollateralChange(
       collateralValue,
     )
 
+    // handleInstallmentsOptionsChange(installmentsElement)
+
     handleTotalValuesUpdate()
   })
 }
 
 export default class CreditasChallenge {
   static initialize() {
+    initInstallmentOptions(document.getElementById('installments'))
+
     this.registerEvents()
   }
 
