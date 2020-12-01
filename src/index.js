@@ -91,35 +91,14 @@ function Help(element) {
               alert(helpText)
             },
           ),
-        reject => console.log(reject),
+        reject => Promise.reject,
       )
-      .catch(error => alert(error.message))
-
-    // fetch('http://localhost:4000/api/question')
-    //   .then(response => {
-    //     if (response.ok) {
-    //       return response.json()
-    //     } else {
-    //       return Promise.reject(response)
-    //     }
-    //   })
-    //   .then(data => {
-    //     console.log(data)
-    //     helpText = data.text
-
-    //     return fetch('http://localhost:4000/api/answer' + helpText)
-    //   })
-    //   .then(response => {
-    //     if (response.ok) {
-    //       return response.json()
-    //     } else {
-    //       return Promise.reject(response)
-    //     }
-    //   })
-    //   .then(data => {
-    //     alert(data.text)
-    //   })
-    //   .catch(error => console.log(error))
+      .catch(error => {
+        if (error === error.status(500)) {
+          helpText = error.message
+          console.log(helpText)
+        }
+      })
   })
 }
 
