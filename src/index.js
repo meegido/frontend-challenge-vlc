@@ -75,7 +75,14 @@ export function Submit(formElement) {
 
 export function Help(element) {
   element.addEventListener('click', event => {
-    alert('Display here the help text')
+    fetch('http://localhost:4000/api/question')
+      .then(response => {
+        return response.json()
+      })
+      .then(data => {
+        alert(data.text)
+      })
+      .catch(error => alert(error.message))
   })
 }
 
