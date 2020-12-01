@@ -111,12 +111,12 @@ function handleChangeRangeCollateralUnderWarranty(
 
   document.getElementById('min-warranty-value').innerHTML = minValueFormatted
   document.getElementById('max-warranty-value').innerHTML = maxValueFormatted
-
-  collateralWarrantyElement.value = warranty.defautlValue
-
+  document
+    .getElementById('collateral-value')
+    .setAttribute('value', warranty.defautlValue)
   warrantyRangeElement.addEventListener('change', event => {
     const rangeValue = Number(event.target.value)
-    const increment = (warranty.maxValue - warranty.minValue) / 100
+    const increment = step / 100
     const collateralValue = increment * rangeValue + warranty.minValue
     collateralWarrantyElement.value = collateralValue
 
@@ -126,6 +126,7 @@ function handleChangeRangeCollateralUnderWarranty(
       document.getElementById('collateral'),
       collateralValue,
     )
+
     handleTotalValuesUpdate()
   })
 }
@@ -139,12 +140,10 @@ export function handleChangeCollateralLoanAmount(
   const loanAmount = {
     vehicle: {
       minValue: Number(3000.0),
-      defautlValue: Number(29950.0),
       maxCollateralValue: Number(3000000.0),
     },
     house: {
       minValue: Number(30000.0),
-      defautlValue: Number(2995000.0),
       maxCollateralValue: Number(100000000.0),
     },
   }
