@@ -31,79 +31,89 @@
             <div class="form__fields">
               <div class="field-group">
                 <div class="field">
-                  <label for="installments">Número de parcelas</label>
-                  <select name="installments" id="installments" required>
-                    <!-- <option value="24">24</option>
-                    <option value="36">36</option>
-                    <option value="48">48</option> -->
-                  </select>
+                  <label class="field-label" for="installments"
+                    >Número de parcelas</label
+                  >
+                  <select
+                    class="field-select"
+                    name="installments"
+                    id="installments"
+                    required
+                  ></select>
                 </div>
                 <div class="field">
-                  <label for="collateral">Garantia</label>
-                  <select name="collateral" id="collateral" required>
+                  <label class="field-label" for="collateral">Garantia</label>
+                  <select
+                    class="field-select"
+                    name="collateral"
+                    id="collateral"
+                    required
+                  >
                     <option value="vehicle">Veículo</option>
                     <option value="house">Casa</option>
                   </select>
                 </div>
               </div>
-              <div class="collateral-value">
-                <div class="field-group">
-                  <div class="field">
-                    <label for="collateral-value">Valor da Garantia</label>
+              <div class="field-group">
+                <div class="field">
+                  <label class="field-label" for="collateral-value"
+                    >Valor da Garantia</label
+                  >
+                  <input
+                    class="field-input"
+                    type="text"
+                    required
+                    name="collateral-value"
+                    id="collateral-value"
+                    value=""
+                  />
+                </div>
+                <div class="field">
+                  <div class="range">
                     <input
-                      type="text"
-                      required
-                      name="collateral-value"
-                      id="collateral-value"
-                      value=""
+                      type="range"
+                      name="collateral-value-range"
+                      id="collateral-value-range"
+                      min="0"
+                      max="100"
+                      value="10"
+                      step="10"
                     />
-                  </div>
-                  <div class="field">
-                    <div class="range">
-                      <input
-                        type="range"
-                        name="collateral-value-range"
-                        id="collateral-value-range"
-                        min="0"
-                        max="100"
-                        value="10"
-                        step="10"
-                      />
-                      <div class="range__values">
-                        <span id="min-warranty-value">5.000</span>
-                        <span id="max-warranty-value">3.000.000</span>
-                      </div>
+                    <div class="range__values">
+                      <span id="min-warranty-value">5.000</span>
+                      <span id="max-warranty-value">3.000.000</span>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="loan">
-                <div class="field-group">
-                  <div class="field">
-                    <label for="loan-amount">Valor do Empréstimo</label>
+              <div class="field-group">
+                <div class="field">
+                  <label class="field-label" for="loan-amount"
+                    >Valor do Empréstimo</label
+                  >
+                  <input
+                    class="field-input"
+                    type="text"
+                    required
+                    name="loan-amount"
+                    id="loan-amount"
+                    value=""
+                  />
+                </div>
+                <div class="field">
+                  <div class="range">
                     <input
-                      type="text"
-                      required
-                      name="loan-amount"
-                      id="loan-amount"
-                      value=""
+                      type="range"
+                      name="loan-amount-range"
+                      id="loan-amount-range"
+                      min="0"
+                      max="100"
+                      value="90"
+                      step="10"
                     />
-                  </div>
-                  <div class="field">
-                    <div class="range">
-                      <input
-                        type="range"
-                        name="loan-amount-range"
-                        id="loan-amount-range"
-                        min="0"
-                        max="100"
-                        value="90"
-                        step="10"
-                      />
-                      <div class="range__values">
-                        <span id="min-loan-value"></span>
-                        <span id="max-loan-value"></span>
-                      </div>
+                    <div class="range__values">
+                      <span id="min-loan-value"></span>
+                      <span id="max-loan-value"></span>
                     </div>
                   </div>
                 </div>
@@ -111,18 +121,16 @@
             </div>
             <div class="form__result">
               <div class="quota__container">
-                <h4>Valor da Parcela</h4>
-                <div class="quota">
-                  <span id="montly-loan-value"></span>
-                </div>
+                <h4 class="quota__title">Valor da Parcela</h4>
+                <span class="quota__amount" id="montly-loan-value"></span>
               </div>
-              <div class="amount_container">
-                <h4>Total a pagar</h4>
+              <div class="amount__container">
+                <h4 class="amount__title">Total a pagar</h4>
                 <span id="total-loan-value"></span>
               </div>
               <div class="tax__container">
-                <h4>Taxa de juros(mês)</h4>
-                <p>111,12%</p>
+                <h4 class="tax__title">Taxa de juros(mês)</h4>
+                <span>111,12%</span>
               </div>
               <button class="button">Solicitar</button>
             </div>

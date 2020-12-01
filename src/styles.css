@@ -75,6 +75,7 @@ body {
 .form {
   display: flex;
   justify-content: space-around;
+  padding: 0 50px;
   margin-bottom: 50px;
 }
 
@@ -92,14 +93,14 @@ body {
   margin-right: 30px;
 }
 
-.field label {
+.field-label {
   color: var(--dove-gray);
   font-weight: bold;
   font-size: 0.8rem;
   margin-bottom: 5px;
 }
 
-.field select {
+.field-select {
   border: none;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -107,8 +108,8 @@ body {
   -ms-appearance: none;
 }
 
-.field select,
-.field input[type='text'] {
+.field-select,
+.field-input[type='text'] {
   color: var(--emperor);
   border: 1px solid var(--nobel);
   background-color: var(--alabaster);
@@ -167,7 +168,9 @@ body {
   min-width: 35%;
 }
 
-.form__result h4 {
+.amount__title,
+.quota__title,
+.tax__title {
   color: var(--boulder);
   font-size: 0.7rem;
   text-align: center;
@@ -180,23 +183,19 @@ body {
   text-align: center;
 }
 
-.quota__container {
+.quota__container,
+.amount__container,
+.tax__container {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.quota__container h4 {
+.quota__title {
   font-weight: 200;
-  font-size: 18px;
 }
 
-.quota strong {
-  font-size: 21px;
-  color: var(--dove-gray);
-}
-
-.quota span {
+.quota__amount {
   font-size: 28px;
   color: var(--mountain-meadow);
   font-weight: bold;
@@ -224,16 +223,13 @@ body {
     align-items: center;
   }
 
-  .form > div {
+  .form__fields {
+    min-width: 100%;
+    margin-bottom: 30px;
     width: 100%;
   }
 
-  .form .form__fields {
-    min-width: 100%;
-    margin-bottom: 30px;
-  }
-
-  .form .form__result {
+  .form__result {
     width: 200px;
     height: 250px;
   }
